@@ -7,10 +7,8 @@
     xmlns:local="clr-namespace:ColorPicker"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     x:Name="uc"
-    MinWidth="200"
-    MinHeight="380"
-    d:DesignHeight="463.308"
-    d:DesignWidth="268.356"
+    MinWidth="330"
+    MinHeight="460"
     mc:Ignorable="d">
     <local:DualPickerControlBase.Resources>
         <ResourceDictionary>
@@ -25,25 +23,48 @@
             ShowAlpha="{Binding ElementName=uc, Path=ShowAlpha}"
             ShowFractionalPart="{Binding ElementName=uc, Path=ShowFractionalPart}"
             SmallChange="{Binding ElementName=uc, Path=SmallChange}" />
-        <DockPanel Margin="0,0,10,0" DockPanel.Dock="Bottom">
+        <DockPanel
+            Margin="10,0,10,0"
+            DockPanel.Dock="Bottom"
+            LastChildFill="False">
+            <local:ColorDisplay
+                x:Name="colorDisplay"
+                Width="{Binding ActualWidth, ElementName=comboBox, Mode=OneWay}"
+                Height="{Binding ActualWidth, ElementName=comboBox, Mode=OneWay}"
+                MaxWidth="80"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Bottom"
+                ColorState="{Binding ElementName=uc, Path=ColorState, Mode=TwoWay}"
+                HintColorState="{Binding ElementName=uc, Path=HintColorState, Mode=TwoWay}"
+                SecondColorState="{Binding ElementName=uc, Path=SecondColorState, Mode=TwoWay}"
+                UseHintColor="{Binding ElementName=uc, Path=UseHintColor, Mode=TwoWay}" />
             <ComboBox
-                Margin="5,0,0,0"
+                x:Name="comboBox"
                 Padding="5"
                 HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
                 DockPanel.Dock="Right"
                 SelectedIndex="{Binding ElementName=uc, Path=PickerType, Converter={StaticResource PickerTypeToIntConverter}}">
                 <ComboBoxItem IsSelected="True">HSV</ComboBoxItem>
                 <ComboBoxItem>HSL</ComboBoxItem>
             </ComboBox>
-            <Label Margin="0,0,5,0" Content="Hex" />
             <local:HexColorTextBox
-                Margin="5,0,5,0"
+                Height="{Binding ActualHeight, ElementName=label, Mode=OneWay}"
+                Margin="5,0,10,0"
+                VerticalAlignment="Bottom"
                 ColorState="{Binding ElementName=uc, Path=ColorState, Mode=TwoWay}"
+                DockPanel.Dock="Right"
                 HexRepresentation="{Binding ElementName=uc, Path=HexRepresentation}"
                 ShowAlpha="{Binding ElementName=uc, Path=ShowAlpha}" />
+            <Label
+                x:Name="label"
+                Margin="10,0,5,0"
+                VerticalAlignment="Bottom"
+                Content="Hex"
+                DockPanel.Dock="Right" />
         </DockPanel>
         <local:SquarePicker
-            Margin="5,5,5,15"
+            Margin="10,10,10,15"
             ColorState="{Binding ElementName=uc, Path=ColorState, Mode=TwoWay}"
             DockPanel.Dock="Top"
             PickerType="{Binding ElementName=uc, Path=PickerType}"
